@@ -217,4 +217,18 @@ public class JsonConvertor extends Convertor {
         STRING,
         OTHER_TYPE
     }
+
+
+    public <T> JSONObject beanToJson(T t) {
+        JSONObject jsonObject = new JSONObject();
+        Field[] fields = t.getClass().getDeclaredFields();
+        for (Field field : fields) {
+
+        }
+        return jsonObject;
+    }
+
+    private void parseFieldToJson(Field field) {
+
+    }
 }

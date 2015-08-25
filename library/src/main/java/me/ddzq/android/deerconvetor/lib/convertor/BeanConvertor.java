@@ -12,7 +12,7 @@ import java.util.*;
 /**
  * Created by dzq on 15/8/25.
  */
-public class BeanConvertor {
+public class BeanConvertor extends Convertor {
 
     public <R, D> D toAnotherBean(R sourceBean, D destination) {
 

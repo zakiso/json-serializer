@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import me.ddzq.android.deerconvetor.lib.ConvertUtil;
 import me.ddzq.android.deerconvetor.lib.TestBean;
 import me.ddzq.android.deerconvetor.lib.convertor.JsonConvertor;
 import org.json.JSONObject;
@@ -23,11 +22,10 @@ public class MainActivity extends ActionBarActivity {
 
         try {
             JSONObject jsonObject = new JSONObject(jsonStr);
-            ConvertUtil convertUtil = new ConvertUtil();
-            TestBean testBean = new TestBean();
             long startTime = System.currentTimeMillis();
 
-            JsonConvertor jsonConvertor = JsonConvertor.build();
+            TestBean testBean = new TestBean();
+            JsonConvertor jsonConvertor = new JsonConvertor();
             testBean = jsonConvertor.jsonToBean(jsonObject, testBean);
 
             long endTime = System.currentTimeMillis();
