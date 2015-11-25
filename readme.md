@@ -4,29 +4,30 @@
 
 ### useage
    
-   ``` java
-    // 把实体对象转换为json
-    JSONObject studentJson = JsonDeer.getInstance().beanToJson(student);
-    // 把json转换为实体对象
-    BookStore bookStore1 = JsonDeer.getInstance().jsonToBean(bookStoreJson,BookStore.class);
-   ``` ✅
+```java
+// 把实体对象转换为json
+JSONObject studentJson = JsonDeer.getInstance().beanToJson(student);
+// 把json转换为实体对象
+BookStore bookStore1 = JsonDeer.getInstance().jsonToBean(bookStoreJson,BookStore.class);
+```
   
-   ``` java
-    public class Student {
-        private int age;
-        @NotConvert             //表示该字段不需要序列化
-        private String name;
-        private long id;
-        @SerializeBy(DateSerializer.class)  //自定义序列化规则,可以轻松的通过实现Serializer接口自定义规则
-        private Date birthDay;
-        private float score;
-        @CollectionInitBy(LinkedList.class)     //反序列化的时候指定集合类型的具体实现类型,如果不指定,所有集合类型默认会使用ArrayList
-        private List<Book> books;
-        @NickName("university")   //表示序列化和反序列化时的别名,比如服务器返回的字段是university 本地字段是school
-        private School school;
-    }
-   ```
-   感兴趣可以下载代码,运行sample查看详细信息,欢迎star&pr;
+```java
+public class Student {
+    private int age;
+    @NotConvert             //表示该字段不需要序列化
+    private String name;
+    private long id;
+    @SerializeBy(DateSerializer.class)  //自定义序列化规则,可以轻松的通过实现Serializer接口自定义规则
+    private Date birthDay;
+    private float score;
+    @CollectionInitBy(LinkedList.class)     //反序列化的时候指定集合类型的具体实现类型,如果不指定,所有集合类型默认会使用ArrayList
+    private List<Book> books;
+    @NickName("university")   //表示序列化和反序列化时的别名,比如服务器返回的字段是university 本地字段是school
+    private School school;
+}
+```
+
+感兴趣可以下载代码,运行sample查看详细信息,欢迎star&pr;
 
 ### License
    
