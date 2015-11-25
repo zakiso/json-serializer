@@ -8,7 +8,7 @@
     // 把实体对象转换为json
     JSONObject studentJson = JsonDeer.getInstance().beanToJson(student);
     // 把json转换为实体对象
-    JSONObject bookStoreJson = JsonDeer.getInstance().beanToJson(bookStore);
+    BookStore bookStore1 = JsonDeer.getInstance().jsonToBean(bookStoreJson,BookStore.class);
    ``` ✅
   
    ``` java
