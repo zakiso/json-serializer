@@ -26,6 +26,7 @@
         private School school;
     }
    ```
+   感兴趣可以下载代码,运行sample查看详细信息,欢迎star&pr;
 
 ### License
    
