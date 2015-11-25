@@ -1,42 +1,32 @@
 ### introduction
 
-这是一个简单的转换工具，可以把json反序列化为一个实体bean，也可以把bean转化为json。json的解析依赖于android系统自带的org.json包。还有俩个附带的功能，可以把一个bean的属性复制到另一个bean的相同字段上，还有把bean转化为map，以及map转换为bean。
+这是一个超轻量的json序列化工具核心就300多行代码，可以把json反序列化为一个实体bean，也可以把bean转化为json。json的解析使用android系统自带的org。代码只有300来行.
 
 ### useage
+   
+   ``` java
+    // 把实体对象转换为json
+    JSONObject studentJson = JsonDeer.getInstance().beanToJson(student);
+    // 把json转换为实体对象
+    JSONObject bookStoreJson = JsonDeer.getInstance().beanToJson(bookStore);
+   ``` ✅
+  
+   ``` java
+    public class Student {
+        private int age;
+        @NotConvert             //表示该字段不需要序列化
+        private String name;
+        private long id;
+        @SerializeBy(DateSerializer.class)  //自定义序列化规则,可以轻松的通过实现Serializer接口自定义规则
+        private Date birthDay;
+        private float score;
+        @CollectionInitBy(LinkedList.class)     //反序列化的时候指定集合类型的具体实现类型,如果不指定,所有集合类型默认会使用ArrayList
+        private List<Book> books;
+        @NickName("university")   //表示序列化和反序列化时的别名,比如服务器返回的字段是university 本地字段是school
+        private School school;
+    }
+   ```
 
-1. json转化为bean
+### License
    
-   ``` java
-   TestBean testBean = new TestBean();
-   JsonConvertor jsonConvertor = new JsonConvertor();
-   testBean = jsonConvertor.jsonToBean(jsonObject, testBean);
-   ```
-   
-   需要注意的地方是：如果Bean中的属性带有集合接口类型则需要指定它具体的事例化类,使用GenericType注解来指定实例化的类比如List，可以用ArrayList来实现，或者LinkedList，如果有集合类型一定要指定它的泛型：
-   
-   ✅
-   
-   ``` java
-   public class TestBean {
-   
-       @GenericType(instantiate = ArrayList.class)
-       private List<MomentsEntity> moments;
-       private String error_msg;
-       private int error_code;
-       private int return_code;
-       private Book book;
-   }
-   ```
-   
-   ❌
-   
-   ``` jav
-    public class TestBean {
-   	//没有用@GenericType指定具体实例化类
-       private List<?> moments; //没有指定具体泛型
-       private String error_msg;
-       private int error_code;
-       private int return_code;
-       private Book book;
-   }
-   ```
+MIT: http://mit-license.org/

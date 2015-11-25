@@ -6,10 +6,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Created by dzq on 15/8/14.
+ * Created by dzq on 15/11/25.
  */
-
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface NotConvert {
+public @interface NickName {
+    String value();
 }
