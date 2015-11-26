@@ -1,3 +1,9 @@
+apply plugin: 'com.android.library'
+
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: "maven-publish"
+
 buildscript {
     repositories {
         jcenter()
@@ -6,21 +12,21 @@ buildscript {
         classpath 'com.android.tools.build:gradle:1.2.3'
     }
 }
-apply plugin: 'com.android.library'
 
 repositories {
     jcenter()
 }
-
+def versionDisplay = '1.0.0'
 android {
     compileSdkVersion 23
     buildToolsVersion "22.0.1"
+    resourcePrefix "lazydeerjson__"
 
     defaultConfig {
         minSdkVersion 8
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName versionDisplay
     }
 
     buildTypes {
@@ -34,4 +40,104 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.0.0'
+}
+
+def siteUrl = 'https://github.com/lazydeer/Json-Serializer'                    // #CONFIG# // project homepage
+def issueUrl = 'https://github.com/lazydeer/Json-Serializer/issues'            // #CONFIG# // project issue url
+def gitUrl = 'https://github.com/lazydeer/Json-Serializer.git'                 // #CONFIG# // project git url
+def group = "me.blogof.deer"                                           // #CONFIG# // Maven Group ID for the artifact (pageckage name is ok)
+//generate javadoc and jar
+
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            groupId 'me.blogof.deer'
+            artifactId 'json-serializer'
+            version versionDisplay
+        }
+    }
+}
+
+
+
+//install {
+//    repositories.mavenInstaller {
+//        // generates POM.xml with proper parameters
+//        pom {
+//            project {
+//                packaging 'aar'
+//                name 'Android Json Serializer'                             // #CONFIG# // project title
+//                groupId 'me.blogof.deer'
+//                artifactId 'json-serializer'
+//                version versionDisplay
+//                url siteUrl
+//                // Set your license
+//                licenses {
+//                    license {
+//                        name 'The Apache Software License, Version 2.0'
+//                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+//                    }
+//                }
+//                developers {
+//                    developer {
+//                        id 'lazydeer'                                  // #CONFIG# // your user id (you can write your nickname)
+//                        name 'Rico Deng'                                       // #CONFIG# // your user name
+//                        email 'dzqlx1993@gmail.com'                      // #CONFIG# // your email
+//                    }
+//                }
+//                scm {
+//                    connection gitUrl
+//                    developerConnection gitUrl
+//                    url siteUrl
+//                }
+//            }
+//        }
+//    }
+//}
+//
+
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    publications = ['MyPublication']
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = "JsonSerializer"                                                   // #CONFIG# project name in jcenter
+        desc = 'A light weight android json serializer library user android built-in json parser.'
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        version{
+            name = '1.0.0'
+            desc = 'first publish'
+        }
+        issueTrackerUrl = issueUrl
+        licenses = ["Apache-2.0"]
+        labels = ['android']
+        publish = true
+        publicDownloadNumbers = true
+    }
 }
