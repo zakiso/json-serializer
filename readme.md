@@ -24,8 +24,10 @@ public class Student {
     @NickName("university")   //Set your field alias,for example your server response json field named university.
     private School school;
 }
+```
 
 For more information you can download the code and sample.
+
 
 ### introduction
 
