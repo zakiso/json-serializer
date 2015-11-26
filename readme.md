@@ -1,5 +1,34 @@
 ### introduction
 
+This is a light weight android json serializer library,the json parser user android built-in org.json library.Project core only 300 lines of code.
+### useage
+   
+```java
+// deserialize a java bean to json object 
+JSONObject studentJson = JsonDeer.getInstance().beanToJson(student);
+// serialize a json object to a java bean
+BookStore bookStore1 = JsonDeer.getInstance().jsonToBean(bookStoreJson,BookStore.class);
+```
+  
+```java
+public class Student {
+    private int age;
+    @NotConvert             //if you add @NotCovert annotation for name field,the field will not be  serialized.
+    private String name;
+    private long id;
+    @SerializeBy(DateSerializer.class)  //The birthDay field will use your custom Serializer class to process the data.
+    private Date birthDay;
+    private float score;
+    @CollectionInitBy(LinkedList.class)     //Specific a collection implement class,if you don't do it,this filed will deserialize by ArrayList.
+    private List<Book> books;
+    @NickName("university")   //Set your field alias,for example your server response json field named university.
+    private School school;
+}
+
+For more information you can download the code and sample.
+
+### introduction
+
 这是一个超轻量的json序列化工具核心就300多行代码，可以把json反序列化为一个实体bean，也可以把bean转化为json。json的解析使用android系统自带的org.json包,兼容日常json使用。主要代码只有300来行.
 
 ### useage
