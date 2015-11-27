@@ -1,7 +1,7 @@
 package me.ddzq.android.deerconvertor.sample.entity;
 
-import me.ddzq.android.deerconvetor.lib.anno.NickName;
-import me.ddzq.android.deerconvetor.lib.anno.NotConvert;
+import me.ddzq.android.deerconvetor.lib.annotation.NickName;
+import me.ddzq.android.deerconvetor.lib.annotation.NotConvert;
 
 /**
  * Created by dzq on 15/11/25.

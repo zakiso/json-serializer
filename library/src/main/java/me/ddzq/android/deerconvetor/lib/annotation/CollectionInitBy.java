@@ -1,4 +1,4 @@
-package me.ddzq.android.deerconvetor.lib.anno;
+package me.ddzq.android.deerconvetor.lib.annotation;
 
 import java.lang.annotation.*;
 

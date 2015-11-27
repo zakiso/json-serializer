@@ -2,7 +2,7 @@ package me.ddzq.android.deerconvertor.sample.entity;
 
 import me.ddzq.android.deerconvertor.sample.customserialiazer.DateSerializer;
 import me.ddzq.android.deerconvertor.sample.customserialiazer.SchoolSerializer;
-import me.ddzq.android.deerconvetor.lib.anno.SerializeBy;
+import me.ddzq.android.deerconvetor.lib.annotation.SerializeBy;
 
 import java.util.Date;
 import java.util.List;

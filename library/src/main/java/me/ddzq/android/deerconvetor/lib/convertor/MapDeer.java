@@ -1,7 +1,7 @@
 package me.ddzq.android.deerconvetor.lib.convertor;
 
 
-import me.ddzq.android.deerconvetor.lib.anno.NotConvert;
+import me.ddzq.android.deerconvetor.lib.annotation.NotConvert;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;

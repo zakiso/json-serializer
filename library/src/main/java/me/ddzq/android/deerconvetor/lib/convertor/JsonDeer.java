@@ -1,10 +1,10 @@
 package me.ddzq.android.deerconvetor.lib.convertor;
 
-import me.ddzq.android.deerconvetor.lib.Serializer.Serializer;
-import me.ddzq.android.deerconvetor.lib.anno.CollectionInitBy;
-import me.ddzq.android.deerconvetor.lib.anno.NickName;
-import me.ddzq.android.deerconvetor.lib.anno.NotConvert;
-import me.ddzq.android.deerconvetor.lib.anno.SerializeBy;
+import me.ddzq.android.deerconvetor.lib.serializer.Serializer;
+import me.ddzq.android.deerconvetor.lib.annotation.CollectionInitBy;
+import me.ddzq.android.deerconvetor.lib.annotation.NickName;
+import me.ddzq.android.deerconvetor.lib.annotation.NotConvert;
+import me.ddzq.android.deerconvetor.lib.annotation.SerializeBy;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,7 +39,35 @@ public class JsonDeer {
      * @param <T>
      * @return
      */
-    public <T> T jsonToBean(JSONObject jsonObject, Class type) {
+    public static <T> T fromJson(JSONObject jsonObject, Class type) {
+        return JsonDeer.getInstance().jsonToBean(jsonObject, type);
+    }
+
+    /**
+     * 把JsonArray转换为java Bean
+     *
+     * @param array  需要转换的Array
+     * @param type   class类
+     * @param <T>
+     * @return
+     */
+    public static <T> Collection<T> fromJsonArray(JSONArray array, Class type) {
+        return JsonDeer.getInstance().jsonArrayToBeanList(array,type);
+    }
+
+    /**
+     * 把一个实体bean转换为json
+     *
+     * @param t
+     * @param <T>
+     * @return
+     */
+    public static <T> JSONObject toJson(T t){
+        return JsonDeer.getInstance().beanToJson(t);
+    }
+
+
+    private <T> T jsonToBean(JSONObject jsonObject, Class type) {
         T t = null;
         try {
             t = (T) type.newInstance();
@@ -53,15 +81,7 @@ public class JsonDeer {
         return null;
     }
 
-    /**
-     * 转换JsonArray为list
-     *
-     * @param array
-     * @param type
-     * @param <T>
-     * @return
-     */
-    public <T> Collection<T> jsonArrayToBeanList(JSONArray array, Class type) {
+    private <T> Collection<T> jsonArrayToBeanList(JSONArray array, Class type) {
         Collection collection = new ArrayList<>();
         BasicType basicType = isBasicType(type);
         try {
@@ -75,15 +95,7 @@ public class JsonDeer {
         return collection;
     }
 
-    /**
-     * 把一个实体bean转换为json
-     *
-     * @param t
-     * @param <T>
-     * @return
-     */
-
-    public <T> JSONObject beanToJson(T t) {
+    private <T> JSONObject beanToJson(T t) {
         JSONObject jsonObject = new JSONObject();
         Field[] fields = t.getClass().getDeclaredFields();
         for (Field field : fields) {
@@ -280,13 +292,8 @@ public class JsonDeer {
     }
 
     private enum BasicType {
-        INT,
-        LONG,
-        BOOLEAN,
-        DOUBLE,
-        FLOAT,
-        STRING,
-        OTHER_TYPE
+        INT, LONG, BOOLEAN, DOUBLE,
+        FLOAT, STRING, OTHER_TYPE
     }
 
     private <T> Object parseFieldValue(Field field, T t) throws Exception {

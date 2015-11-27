@@ -1,8 +1,7 @@
 package me.ddzq.android.deerconvertor.sample.customserialiazer;
 
 import me.ddzq.android.deerconvertor.sample.entity.School;
-import me.ddzq.android.deerconvetor.lib.Serializer.Serializer;
-import org.json.JSONObject;
+import me.ddzq.android.deerconvetor.lib.serializer.Serializer;
 
 /**
  * Created by dzq on 15/11/25.

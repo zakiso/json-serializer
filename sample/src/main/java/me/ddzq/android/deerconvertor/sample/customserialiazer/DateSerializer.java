@@ -1,6 +1,6 @@
 package me.ddzq.android.deerconvertor.sample.customserialiazer;
 
-import me.ddzq.android.deerconvetor.lib.Serializer.Serializer;
+import me.ddzq.android.deerconvetor.lib.serializer.Serializer;
 
 import java.util.Date;
 
