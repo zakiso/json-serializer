@@ -2,9 +2,12 @@ package me.ddzq.android.deerconvertor.sample.entity;
 
 import me.ddzq.android.deerconvertor.sample.customserialiazer.DateSerializer;
 import me.ddzq.android.deerconvertor.sample.customserialiazer.SchoolSerializer;
+import me.ddzq.android.deerconvetor.lib.annotation.CollectionInitBy;
 import me.ddzq.android.deerconvetor.lib.annotation.SerializeBy;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -14,9 +17,11 @@ public class Student {
     private int age;
     private String name;
     private long id;
-    @SerializeBy(DateSerializer.class)
+    @SerializeBy(DateSerializer.class)  //the birthDay will use your provide class serialize
     private Date birthDay;
     private float score;
+    //specific a collection implement class,if not the books field will be deserialize by ArrayList
+    @CollectionInitBy(LinkedList.class)
     private List<Book> books;
     @SerializeBy(SchoolSerializer.class)
     private School school;
@@ -78,14 +83,4 @@ public class Student {
         this.books = books;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Student{" +
-//                "age=" + age +
-//                ", name='" + name + '\'' +
-//                ", id=" + id +
-//                ", score=" + score +
-//                ", books=" + books +
-//                '}';
-//    }
 }

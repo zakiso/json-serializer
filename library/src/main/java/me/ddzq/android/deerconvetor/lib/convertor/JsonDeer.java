@@ -23,7 +23,7 @@ public class JsonDeer {
 
     private static JsonDeer jsonConvertor;
 
-    public static JsonDeer getInstance() {
+    private static JsonDeer getInstance() {
         if (null != jsonConvertor) {
             return jsonConvertor;
         }
@@ -163,10 +163,13 @@ public class JsonDeer {
                 //判断泛型是否为基本类型
                 BasicType basicType = isBasicType(genericType);
                 //是基本类型则直接向容器中添加信息,若不是基本类型继续使用parseEntity
-                Collection collection = new ArrayList();
+                Collection collection = null;
                 if (field.isAnnotationPresent(CollectionInitBy.class)) {
                     Class c = field.getAnnotation(CollectionInitBy.class).value();
                     collection = (Collection) c.newInstance();
+                }
+                if (collection == null){
+                    collection = new ArrayList();
                 }
                 JSONArray jsonArray = jsonObject.getJSONArray(fieldName);
                 if (basicType != BasicType.OTHER_TYPE) {
@@ -179,7 +182,9 @@ public class JsonDeer {
                 }
             }
         } catch (Exception e) {
-
+            if (e instanceof InstantiationException) {
+                throw new RuntimeException(new Exception("@CollectionInitBy must specific a collection implementation subclass "));
+            }
         }
 
     }
@@ -193,7 +198,6 @@ public class JsonDeer {
             collection.add(o);
         }
         return collection;
-
     }
 
     private Collection setCollectionBasicValue(
@@ -210,7 +214,6 @@ public class JsonDeer {
         Object o = generateInstance(fieldType);
         o = parseEntity(value, o);
         field.set(t, o);
-
     }
 
     private <T> void setBasicValue(Field field, JSONObject jsonObject,

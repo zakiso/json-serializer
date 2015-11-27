@@ -5,6 +5,13 @@ import me.ddzq.android.deerconvetor.lib.serializer.Serializer;
 
 /**
  * Created by dzq on 15/11/25.
+ *
+ * implement a custom Serializer.Usage in the below.
+ *
+ * public class Student {
+ *      @SerializeBy(SchoolSerializer.class)
+ *      private School school;
+ * }
  */
 public class SchoolSerializer implements Serializer<School> {
     @Override

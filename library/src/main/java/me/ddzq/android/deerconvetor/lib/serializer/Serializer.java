@@ -5,8 +5,8 @@ package me.ddzq.android.deerconvetor.lib.serializer;
  */
 public interface Serializer<T> {
 
-    public String serialization(T t);
+    String serialization(T t);
 
-    public T deserialization(String s);
+    T deserialization(String s);
 
 }

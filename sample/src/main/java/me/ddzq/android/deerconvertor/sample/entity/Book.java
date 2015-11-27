@@ -7,10 +7,13 @@ import me.ddzq.android.deerconvetor.lib.annotation.NotConvert;
  * Created by dzq on 15/11/25.
  */
 public class Book {
+
+    //when you serialize to JsonObject the name data will be replace to bookName field;
+    //when you deserialize from JsonObject the name field data will read from bookName field;
     @NickName("bookName")
     private String name;
     private float price;
-    @NotConvert
+    @NotConvert     //the field will not serialized
     private String press;
 
     public String getName() {

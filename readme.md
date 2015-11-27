@@ -1,13 +1,13 @@
 ### introduction
 
-This is a light weight android json serializer library,the json parser user android built-in org.json library.Project core only 300 lines of code.
+This is a light weight android json serializer library,the json parser use android built-in json library.Project core only 300 lines of code.
 ### usage
    
 ```java
 // deserialize a java bean to json object 
-JSONObject studentJson = JsonDeer.getInstance().beanToJson(student);
-// serialize a json object to a java bean
-BookStore bookStore1 = JsonDeer.getInstance().jsonToBean(bookStoreJson,BookStore.class);
+JSONObject studentJson = JsonDeer.toJson(student);
+// serialize a java bean from json object
+Student student1 = JsonDeer.fromJson(studentJson,Student.class);
 ```
   
 ```java
@@ -56,9 +56,9 @@ dependencies {
    
 ```java
 // 把实体对象转换为json
-JSONObject studentJson = JsonDeer.getInstance().beanToJson(student);
+JSONObject studentJson = JsonDeer.toJson(student);
 // 把json转换为实体对象
-BookStore bookStore1 = JsonDeer.getInstance().jsonToBean(bookStoreJson,BookStore.class);
+Student student1 = JsonDeer.fromJson(studentJson,Student.class);
 ```
   
 ```java
