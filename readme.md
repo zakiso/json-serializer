@@ -33,12 +33,8 @@ Download
 --------
 
 Gradle:
+
 ```groovy
-repositories {
-    maven {
-        url "http://dl.bintray.com/dzqlx1993/maven"
-    }
-}
 
 dependencies {
     //add this line to your dependencies
