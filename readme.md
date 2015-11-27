@@ -1,7 +1,7 @@
 ### introduction
 
 This is a light weight android json serializer library,the json parser user android built-in org.json library.Project core only 300 lines of code.
-### useage
+### usage
    
 ```java
 // deserialize a java bean to json object 
@@ -48,11 +48,11 @@ dependencies {
 ```
 
 
-### introduction
+### 介绍
 
 这是一个超轻量的json序列化工具核心就300多行代码，可以把json反序列化为一个实体bean，也可以把bean转化为json。json的解析使用android系统自带的org.json包,兼容日常json使用。主要代码只有300来行.
 
-### useage
+### 用法
    
 ```java
 // 把实体对象转换为json
