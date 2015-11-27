@@ -29,6 +29,22 @@ public class Student {
 For more information you can download the code and sample.
 
 
+Download
+--------
+
+Gradle:
+```groovy
+repositories {
+    maven {
+        url "http://dl.bintray.com/dzqlx1993/maven"
+    }
+}
+// add this line to dependencies
+compile 'me.blogof.deer:json-serializer:1.0.0@aar'
+
+```
+
+
 ### introduction
 
 这是一个超轻量的json序列化工具核心就300多行代码，可以把json反序列化为一个实体bean，也可以把bean转化为json。json的解析使用android系统自带的org.json包,兼容日常json使用。主要代码只有300来行.
