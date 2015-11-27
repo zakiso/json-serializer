@@ -39,8 +39,11 @@ repositories {
         url "http://dl.bintray.com/dzqlx1993/maven"
     }
 }
-// add this line to dependencies
-compile 'me.blogof.deer:json-serializer:1.0.0@aar'
+
+dependencies {
+    //add this line to your dependencies
+    compile 'me.blogof.deer:json-serializer:1.0.0@aar'
+}
 
 ```
 
