@@ -8,9 +8,6 @@ buildscript {
     repositories {
         jcenter()
     }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:1.2.3'
-    }
 }
 
 repositories {
@@ -27,6 +24,13 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName versionDisplay
+        libraryVariants.all { variant ->
+            variant.outputs.each { output ->
+                def file = output.outputFile
+                output.outputFile = new File(file.parent,
+                        file.name.replace("library-release.aar", "json-serializer-" + versionDisplay + ".aar"))
+            }
+        }
     }
 
     buildTypes {
@@ -38,69 +42,53 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.0.0'
 }
 
 def siteUrl = 'https://github.com/lazydeer/Json-Serializer'                    // #CONFIG# // project homepage
 def issueUrl = 'https://github.com/lazydeer/Json-Serializer/issues'            // #CONFIG# // project issue url
 def gitUrl = 'https://github.com/lazydeer/Json-Serializer.git'                 // #CONFIG# // project git url
 def group = "me.blogof.deer"                                           // #CONFIG# // Maven Group ID for the artifact (pageckage name is ok)
+
 //generate javadoc and jar
 
-publishing {
-    publications {
-        MyPublication(MavenPublication) {
-            groupId 'me.blogof.deer'
-            artifactId 'json-serializer'
-            version versionDisplay
+install {
+    repositories.mavenInstaller {
+        // generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+                name 'json-serializer'                             // #CONFIG# // project title
+                groupId 'me.blogof.deer'
+                artifactId 'json-serializer'
+                version versionDisplay
+                url siteUrl
+                // Set your license
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'lazydeer'
+                        // #CONFIG# // your user id (you can write your nickname)
+                        name 'Rico Deng'                                       // #CONFIG# // your user name
+                        email 'dzqlx1993@gmail.com'                      // #CONFIG# // your email
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
         }
     }
 }
 
 
 
-//install {
-//    repositories.mavenInstaller {
-//        // generates POM.xml with proper parameters
-//        pom {
-//            project {
-//                packaging 'aar'
-//                name 'Android Json Serializer'                             // #CONFIG# // project title
-//                groupId 'me.blogof.deer'
-//                artifactId 'json-serializer'
-//                version versionDisplay
-//                url siteUrl
-//                // Set your license
-//                licenses {
-//                    license {
-//                        name 'The Apache Software License, Version 2.0'
-//                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-//                    }
-//                }
-//                developers {
-//                    developer {
-//                        id 'lazydeer'                                  // #CONFIG# // your user id (you can write your nickname)
-//                        name 'Rico Deng'                                       // #CONFIG# // your user name
-//                        email 'dzqlx1993@gmail.com'                      // #CONFIG# // your email
-//                    }
-//                }
-//                scm {
-//                    connection gitUrl
-//                    developerConnection gitUrl
-//                    url siteUrl
-//                }
-//            }
-//        }
-//    }
-//}
-//
-
-
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
 
 task javadoc(type: Javadoc) {
     source = android.sourceSets.main.java.srcDirs
@@ -111,28 +99,67 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
 }
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            artifact (javadocJar) { // (3)
+                classifier = 'javadoc'
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            artifact (sourcesJar) { // (2)
+                classifier = 'sources'
+            }
+        }
+    }
+}
+
 
 artifacts {
     archives javadocJar
     archives sourcesJar
 }
 
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            groupId 'me.blogof.deer'
+            artifactId 'json-serializer'
+            version versionDisplay
+            artifact 'build/outputs/aar/json-serializer-' +versionDisplay +'.aar'
+        }
+    }
+}
+
+
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 bintray {
     user = properties.getProperty("bintray.user")
     key = properties.getProperty("bintray.apikey")
+//    configurations = ['archives']
     publications = ['MyPublication']
-    configurations = ['archives']
     pkg {
         repo = "maven"
-        name = "JsonSerializer"                                                   // #CONFIG# project name in jcenter
+        name = "json-serializer"
+        // #CONFIG# project name in jcenter
         desc = 'A light weight android json serializer library user android built-in json parser.'
         websiteUrl = siteUrl
         vcsUrl = gitUrl
-        version{
+        version {
             name = '1.0.0'
             desc = 'first publish'
+            vcsTag = '1.3.0'
         }
         issueTrackerUrl = issueUrl
         licenses = ["Apache-2.0"]

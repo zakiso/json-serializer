@@ -302,7 +302,7 @@ public class JsonDeer {
             BasicType basicType = isBasicType(fieldType);
             //如果类型为基本类型
             if (basicType != BasicType.OTHER_TYPE) {
-                return String.valueOf(field.get(t));
+                return field.get(t);
             } else {
                 //类型不为基本类型且不是容器类型
                 return beanToJson(field.get(t));
