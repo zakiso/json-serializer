@@ -69,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
 
         student.setSchool(school);
 
+        hello greagreagreagrea 
+
         return student;
     }
 
